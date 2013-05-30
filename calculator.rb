@@ -15,8 +15,9 @@ def calculator
   elsif @type == "advanced"
     advanced_operations
   else 
-    puts "Something went wrong"  
+    puts "Something went wrong."  
   end
+  do_another_operation
 end
 
 def basic_operations
@@ -44,16 +45,17 @@ def basic_operations
 end
 
 def advanced_operations
-  puts "Would you like to find an exponent (exponent) or a square root (root)?"
-  operations = gets.chomp
-  while operations != "exponent" && operations != "root"
+  def operations_type
     puts "Would you like to find an exponent (exponent) or a square root (root)?"
-    operations = gets.chomp
+    @operations = gets.chomp
   end
-  if operations == "exponent"
+  while @operations != "exponent" && @operations != "root"
+    operations_type
+  end
+  if @operations == "exponent"
     get_num
     exponent
-  elsif operations == "root"
+  elsif @operations == "root"
     square_root
   else
     puts "Something went wrong."  
@@ -62,58 +64,72 @@ end
 
 def get_num
   def get_numbers
-    puts "Please type a number"
+    puts "Please enter the first number."
     @num1 = gets.chomp
-    puts "Please type a second number"
+    puts "Please enter the second number."
     @num2 = gets.chomp
   end
-  
   def is_actually_a_number
     @num1 == @num1.to_i.to_s && @num2 == @num2.to_i.to_s
   end  
-  
   until is_actually_a_number
     get_numbers
   end
-
   @num1 = @num1.to_i
   @num2 = @num2.to_i
-
   return @num1, @num2
+end
 
+def reset
+  @type = nil
+  @operations = nil
+  @num1 = nil
+  @num2 = nil
+  @another = nil
+end
+
+def do_another_operation
+  def another_op
+    puts "Would you like to perform another operation? (yes or no)"
+    @another = gets.chomp
+  end
+  while @another != "yes" && @another != "no"
+    another_op
+  end
+  if @another == "yes"
+    reset
+    calculator
+  else
+    puts "Goodbye."
+  end
 end
 
 #Mathematical Functions
 def add_num
-  puts @num1 + @num2
+  puts "#{@num1} + #{@num2} = #{@num1 + @num2}"
 end
 
 def subtract_num
-  puts @num1 - @num2
+  puts "#{@num1} - #{@num2} = #{@num1 - @num2}"
 end
 
 def multiply_num
-  puts @num1 * @num2
+  puts "#{@num1} * #{@num2} = #{@num1 * @num2}"
 end
 
 def divide_num
-  puts @num1 / @num2
+  puts "#{@num1} / #{@num2} = #{@num1 / @num2}"
 end
 
 def exponent
-  puts @num1 ** @num2
+  puts "#{@num1} ^ #{@num2} = #{@num1 ** @num2}"
 end
 
 def square_root
-  puts "Please enter a number"
+  puts "Please enter a number."
   num3 = gets.chomp.to_i
-  puts Math.sqrt(num3)
+  puts "The square root of #{num3} is #{Math.sqrt(num3)}"
 end
 
 
 calculator
-
-
-
-
-
